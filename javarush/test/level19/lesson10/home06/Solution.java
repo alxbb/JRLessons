@@ -6,10 +6,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static java.lang.Thread.sleep;
 
 /* Замена чисел
 1. В статическом блоке инициализировать словарь map парами [число-слово] от 0 до 12 включительно
@@ -32,6 +28,7 @@ import static java.lang.Thread.sleep;
 
 public class Solution {
     public static Map<Integer, String> map = new HashMap<Integer, String>();
+
     static {
         map.put(0, "ноль");
         map.put(1, "один");
@@ -48,37 +45,26 @@ public class Solution {
         map.put(12, "двенадцать");
     }
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String fname = br.readLine();
+        String fName = br.readLine();
         br.close();
 
-        BufferedReader fr = new BufferedReader(new FileReader(fname));
-
-        String regexp = "(\\b(\\d{1,2})\\b)";
-        Pattern pattern = Pattern.compile(regexp);
-        Matcher matcher;
-
+        BufferedReader fr = new BufferedReader(new FileReader(fName));
         while(fr.ready()){
             String in = fr.readLine();
-            System.out.println(in);
-            matcher = pattern.matcher(in);
-            int start = 0;
-            while(true){
-                if (matcher.find()) {
-                    String sId = matcher.group();
-                    int idx = Integer.parseInt(sId);
-                    String val = map.get(idx);
-                    System.out.println("idx = " + idx + " // val = " + val);
-                    if (map.containsKey(idx)) {
-                        in = matcher.replaceFirst(val);
-                        sleep(500);
-                    } else continue;
-                }else break;
-                matcher = pattern.matcher(in);
-                System.out.println(in);
+            for(Map.Entry<Integer, String> pair : map.entrySet()){
+                if(in.startsWith(pair.getKey()+" ")){
+                    in = pair.getValue() + " " + in.substring(((pair.getKey()+" ").length()), in.length());
+                }else if(in.endsWith(" " + pair.getKey())){
+                    in = in.substring(0,(in.length()-(pair.getKey()+" ").length())) + " " + pair.getValue();
+                }else {
+                    in = in.replace(" " + pair.getKey() + " ", " " + pair.getValue() + " ");
+                }
             }
             System.out.println(in);
         }
+        fr.close();
+
     }
 }
