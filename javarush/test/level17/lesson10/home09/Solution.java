@@ -1,5 +1,6 @@
 package com.javarush.test.level17.lesson10.home09;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +21,48 @@ public class Solution {
     public static List<String> forRemoveLines = new ArrayList<String>();
 
     public static void main(String[] args) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader fr;
+        String fname1, fname2;
+        try {
+            fname1 = br.readLine();
+            fname2 = br.readLine();
+
+            fr = new BufferedReader(new FileReader(new File(fname1)));
+            while (true) {
+                String s = fr.readLine();
+                if (s == null) break;
+                allLines.add(s);
+            }
+            fr.close();
+
+            fr = new BufferedReader(new FileReader(new File(fname2)));
+            while (true) {
+                String s = fr.readLine();
+                if (s == null) break;
+                forRemoveLines.add(s);
+            }
+            fr.close();
+
+                try {
+                new Solution().joinData();
+                } catch (CorruptedDataException e) {
+                    System.out.println("Данные не найдены");
+                }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    public void joinData () throws CorruptedDataException {
-
+    public void joinData() throws CorruptedDataException {
+        if(allLines.containsAll(forRemoveLines)) allLines.removeAll(forRemoveLines);
+        else {
+            allLines.clear();
+            throw new CorruptedDataException();
+        }
     }
+
 }

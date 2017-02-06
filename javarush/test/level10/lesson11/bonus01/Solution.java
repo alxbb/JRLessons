@@ -27,13 +27,11 @@ public class Solution {
         for (int i = 0; i < 10; i++) {
             int index = Integer.parseInt(reader.readLine());
             String name = reader.readLine();
-//            System.out.println(" -> " + i + " " + index + " " + name);
             solution.map.put(index, name);
-
         }
 
         for (Map.Entry<Integer, String> pair : solution.map.entrySet()) {
-            Integer index = pair.getKey();
+            int index = pair.getKey();
             String name = pair.getValue();
             System.out.println("Id=" + index + " Name=" + name);
         }

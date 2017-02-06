@@ -1,5 +1,7 @@
 package com.javarush.test.level09.lesson11.bonus02;
 
+
+
 import java.io.*;
 
 /* Нужно добавить в программу новую функциональность
@@ -14,16 +16,29 @@ public class Solution
     public static void main(String[] args) throws IOException
     {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String sourceFileName;
+        String destinationFileName;
+        FileInputStream fileInputStream;
+        FileOutputStream fileOutputStream;
 
-        String sourceFileName = reader.readLine();
-        String destinationFileName = reader.readLine();
+        while(true) {
+            sourceFileName = reader.readLine();
+            if ((new File(sourceFileName)).exists())
+            {
+                fileInputStream = new FileInputStream(sourceFileName);
+                break;
+            } else{
+                System.out.println("Файл не существует.");
+            }
+        }
 
-        FileInputStream fileInputStream = new FileInputStream(sourceFileName);
-        FileOutputStream fileOutputStream = new FileOutputStream(destinationFileName);
+        destinationFileName = reader.readLine();
+        fileOutputStream = new FileOutputStream(destinationFileName);
 
-        while (fileInputStream.available() > 0)
+        while (true)
         {
             int data = fileInputStream.read();
+            if(data == -1) break;
             fileOutputStream.write(data);
         }
 

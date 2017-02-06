@@ -1,14 +1,24 @@
-package com.javarush.test.level18.lesson03.task03;
+package com.javarush.test.level18.lesson03.task05;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-/* Самые частые байты
+
+
+
+/* Сортировка байт
 Ввести с консоли имя файла
-Найти байт или байты с максимальным количеством повторов
-Вывести их на экран через пробел
+Считать все байты из файла.
+Не учитывая повторений - отсортировать их по байт-коду в возрастающем порядке.
+Вывести на экран
 Закрыть поток ввода-вывода
+
+Пример байт входного файла
+44 83 44
+
+Пример вывода
+44 83
 */
 
 public class Solution {
@@ -17,19 +27,17 @@ public class Solution {
         String fname = br.readLine();
         int[] bytes = new int[256];
         int max = 0;
-        long time = System.currentTimeMillis();
         FileInputStream fis = new FileInputStream(fname);
 
         if(fis.available() == 0) return;
 
         while(fis.available() > 0){
             int b = fis.read();
-            bytes[fis.read()]++;
-            if( bytes[b] > max ) max = bytes[b];
+            bytes[b]++;
         }
-        System.out.println("max = " + max);
+
         for (int i = 0; i < 256; i++) {
-            if(bytes[i] == max ) System.out.print( i + " ");
+            if(bytes[i] > 0 ) System.out.print( i + " ");
         }
 
         br.close();

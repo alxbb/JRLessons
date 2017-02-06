@@ -20,7 +20,31 @@ package com.javarush.test.level19.lesson10.home02;
 Петров
 */
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Map;
+import java.util.TreeMap;
+
 public class Solution {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        if(args.length == 0) return;
+        Map<String, Double> map = new TreeMap<>();
+
+        BufferedReader fr = new BufferedReader(new FileReader(args[0]));
+        double max = 0;
+        while(fr.ready()){
+            String[] s = fr.readLine().split(" ");
+            Double value = Double.parseDouble(s[1]);
+            if(map.containsKey(s[0])) map.put(s[0], (value += map.get(s[0])));
+            else map.put(s[0], value);
+            if(value > max) max = value;
+        }
+
+        for (Map.Entry<String, Double> pair : map.entrySet()){
+            if(pair.getValue() >= max) System.out.println(pair.getKey());
+        }
+
+        fr.close();
     }
 }

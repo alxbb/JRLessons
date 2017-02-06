@@ -38,19 +38,15 @@ public class Solution
     {
         HashMap<String, Integer> result = new HashMap<String, Integer>();
 
-        for (String s: list){
-            result.put(s, 0);
-            for(HashMap.Entry<String,Integer> pair : result.entrySet())
-                if (result.containsKey(s)) {
-                    if (pair.getKey().equals(s)) {
-                        pair.setValue(pair.getValue() + 1);
+        for( String s : list){
+            result.put(s,0);
+        }
 
-                    }
-                } else {
-                    result.put(s, 0);
-                }
-
+        for(Map.Entry<String,Integer> pair : result.entrySet()){
+            for(String s: list){
+                if(s.equals(pair.getKey())) pair.setValue(pair.getValue()+1);
             }
+        }
 
         return result;
     }
