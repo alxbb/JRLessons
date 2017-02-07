@@ -1,0 +1,16 @@
+//        String path = "C:\\TEMP\\JavaRush\\TEST\\Lion.avi.part";
+//        FileOutputStream fos;
+//        byte[] buf;
+//        for (int i = 0; i < 10; i++) {
+//            fos = new FileOutputStream(path+i);
+//            buf = "|".getBytes();
+//            String tmp = "|";
+//            for (int j = 0; j < 20; j++) {
+//                tmp +=(char)(Math.random()*256);
+//            }
+//            tmp +="|";
+//            buf = tmp.getBytes();
+//            fos.write(buf);
+//            fos.close();
+//        }
+//    }
